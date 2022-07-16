@@ -52,7 +52,7 @@ public class NodeController : MonoBehaviour
         return resources[type];
     }
 
-    public ArrayList RollBlueprint()
+    public List<int> RollBlueprint()
     {
         float totalWeight = 0.0f;
         foreach(ArrayList i in blueprintChances)
@@ -68,7 +68,7 @@ public class NodeController : MonoBehaviour
             currentIndexWeight += (float)i[2];
             if (currentIndexWeight >= itemWeightIndex)
             {
-                return new ArrayList { (int)i[0], (int)i[1] };
+                return new List<int> { (int)i[0], (int)i[1] };
             }
         }
 
