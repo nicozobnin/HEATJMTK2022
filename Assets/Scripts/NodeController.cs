@@ -32,7 +32,12 @@ public class NodeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("hi");
+        //Debug.Log(ReturnResource(0)[1]);
+        //Debug.Log(blueprintChances);
+        var a = RollBlueprint();
+        Debug.Log(a[0]);
+        Debug.Log(a[1]);
     }
 
     // Update is called once per frame
@@ -47,7 +52,7 @@ public class NodeController : MonoBehaviour
         return resources[type];
     }
 
-    public List<int> RollBlueprint()
+    public ArrayList RollBlueprint()
     {
         float totalWeight = 0.0f;
         foreach(ArrayList i in blueprintChances)
@@ -63,7 +68,7 @@ public class NodeController : MonoBehaviour
             currentIndexWeight += (float)i[2];
             if (currentIndexWeight >= itemWeightIndex)
             {
-                return new List<int> { (int)i[0], (int)i[1] };
+                return new ArrayList { (int)i[0], (int)i[1] };
             }
         }
 
