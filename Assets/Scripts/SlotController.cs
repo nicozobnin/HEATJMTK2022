@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SlotController : MonoBehaviour
 {
+    public GameObject dice;
     // Start is called before the first frame update
     void Start()
     {
