@@ -16,25 +16,24 @@ public class PlayerScript : MonoBehaviour
             resources.Add(0);
         }
 
-        /* Test code
+        
         AddResource(new() { 1, 2 } );
         AddResources(new() { new() { 0, 3 }, new() { 2, 7 }, new() { 0, 2 } });
 
-        Debug.Log("Resources added. Printing:");
+        //Debug.Log("Resources added. Printing:");
         foreach (var x in resources)
         {
-            Debug.Log(x.ToString());
+            //Debug.Log(x.ToString());
         }
 
         SubtractResource(new() { 1, 1 });
         SubtractResources(new() { new() { 0, 1 }, new() { 2, 3 }, new() { 0, 2 } });
 
-        Debug.Log("Resources removed. Printing:");
+        //Debug.Log("Resources removed. Printing:");
         foreach (var x in resources)
         {
-            Debug.Log(x.ToString());
+            //Debug.Log(x.ToString());
         }
-        */
 
     }
 
