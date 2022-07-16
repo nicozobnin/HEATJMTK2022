@@ -11,6 +11,8 @@ public class BlueprintController : MonoBehaviour
     /* Format: (Face ID, Tier)
      * */
 
+    // Hello I exist!
+
     public List<List<int>> cost = new()
     {
         new List<int> { 0, 1 },

@@ -32,7 +32,12 @@ public class NodeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("hi");
+        //Debug.Log(ReturnResource(0)[1]);
+        //Debug.Log(blueprintChances);
+        var a = RollBlueprint();
+        Debug.Log(a[0]);
+        Debug.Log(a[1]);
     }
 
     // Update is called once per frame
