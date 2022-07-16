@@ -6,7 +6,7 @@ public class PlayerScript : MonoBehaviour
 {
     public int resourceCount = 3;
     public List<int> resources = new();
-    
+    public GameObject canvas;
 
 
     void Start()
@@ -16,7 +16,7 @@ public class PlayerScript : MonoBehaviour
             resources.Add(0);
         }
 
-        
+        // For Testing
         AddResource(new() { 1, 2 } );
         AddResources(new() { new() { 0, 3 }, new() { 2, 7 }, new() { 0, 2 } });
 
@@ -47,6 +47,7 @@ public class PlayerScript : MonoBehaviour
     public void AddResource(List<int> r)
     {
         resources[r[0]] += r[1];
+        canvas.GetComponent<CanvasScript>().UpdateResources();
     }
 
     // Adds [[ID, Quantity], []. ...] resources.
@@ -89,6 +90,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         resources[r[0]] -= r[1];
+        canvas.GetComponent<CanvasScript>().UpdateResources();
         return true;
     }
 
