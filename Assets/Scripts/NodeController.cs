@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node : MonoBehaviour
+public class NodeController : MonoBehaviour
 {
     public ArrayList resources = new();
     /* Order: Pickaxe, Axe, Sickle
@@ -12,7 +12,7 @@ public class Node : MonoBehaviour
         (0, 1),
         (0, 1)
     }*/
-    public string name;
+    public string nodeName;
     public int hazard;
     public GameObject[] slots;
 
@@ -21,13 +21,18 @@ public class Node : MonoBehaviour
     void Start()
     {
         Debug.Log("hi");
-        Debug.Log(resources[0]);
-        Debug.Log(name);
+        Debug.Log(resources);
+        Debug.Log(nodeName);
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public ArrayList getResources()
+    {
+        return resources;
     }
 }
