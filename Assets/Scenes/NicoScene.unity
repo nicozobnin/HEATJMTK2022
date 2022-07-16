@@ -830,98 +830,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 834629220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28e46328acc9571419de04351cc736ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 21d5494c81a483d4f97ad9ebc653fe60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllCubeTextures:
-  - {fileID: 2800000, guid: 2cd5ad469f363ab459d1e28c9325561d, type: 3}
-  - {fileID: 2800000, guid: ac94570eaf1d56d4987ce4070d73782d, type: 3}
-  - {fileID: 2800000, guid: 64fe9d73774c11a41911c99847bd85e7, type: 3}
-  - {fileID: 2800000, guid: e12d5c0ba664b694bb43986a48b15dfc, type: 3}
-  - {fileID: 2800000, guid: 9481bf88d4f9a3f4c9394183ef723c05, type: 3}
-  - {fileID: 2800000, guid: 642ae5de443c50d419b22d45cf628166, type: 3}
-  TextureAtlas: {fileID: 2800000, guid: 1cf6a565707198f4990bf7d283e935e5, type: 3}
-  AtlasUvs:
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  - serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+  faceAssets: []
+  TextureAtlas: {fileID: 0}
+  AtlasUvs: []
 --- !u!23 &834629222
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1479,32 +1393,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 1521300666}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a75fd9f5e5db2c84aabd7f322a23aead, type: 3}
+  m_Script: {fileID: 11500000, guid: c868998a95d63c1439fdfa6acb5d2603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   facesList:
-  - {fileID: 385943897}
-  - {fileID: 1198492961}
-  - {fileID: 781247442}
-  - {fileID: 489364521}
-  - {fileID: 208378551}
-  - {fileID: 234659164}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   faceAssets:
-  - {fileID: 2800000, guid: 2cd5ad469f363ab459d1e28c9325561d, type: 3}
-  - {fileID: 2800000, guid: b74c4097bca5a0d4f87de9092fa5004a, type: 3}
-  - {fileID: 2800000, guid: 332c3004d8bb7174c8bc50ad5071af09, type: 3}
-  - {fileID: 2800000, guid: 10443bb2d2c99e444af1e7f1da79b89e, type: 3}
-  - {fileID: 2800000, guid: b74c4097bca5a0d4f87de9092fa5004a, type: 3}
-  - {fileID: 2800000, guid: e7e61af494c70b14b9ed4e51c6fea5d0, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   faceMaterial:
-  - {fileID: 2100000, guid: 7cc41f78a2ee4a64697550b96fa3b6a7, type: 2}
-  - {fileID: 2100000, guid: 9af1b586519920a42a163287628321d4, type: 2}
-  - {fileID: 2100000, guid: a39572419812e3f45825551496df093f, type: 2}
-  - {fileID: 2100000, guid: 105cafef47bb9d4458ab31f55d3feac7, type: 2}
-  - {fileID: 2100000, guid: 431dc69102f698c47a6e50284199250d, type: 2}
-  - {fileID: 2100000, guid: 45c660b75491ec841bf5be9cf50a0e6b, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   timer: 0
-  timelimit: 2.5
+  timelimit: 0.5
 --- !u!65 &1521300668
 BoxCollider:
   m_ObjectHideFlags: 0
