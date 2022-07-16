@@ -1,0 +1,14 @@
+private functions:
+lowercaseUppercase()
+
+public functions:
+UppercaseUppercase()
+
+private variable:
+mlowercaseUppercase
+
+publicVariable:
+mUppercaseUppercase
+
+Vector
+mV+type
