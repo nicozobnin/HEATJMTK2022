@@ -15,12 +15,19 @@ public class EventHandler : MonoBehaviour
     public List<Event> globalEventsList = new()
     {
     };
+    public List<EventList> globalEventPoolsList = new()
+    {
+
+    };
 
     // Start is called before the first frame update
     void Start()
     {
+        //Fill the Events list.
         globalEventsList.Add(new DefaultEvent());
 
+        //Fills the Event Pools list.
+        //globalEventsList.Add(new)
 
     }
 
@@ -40,12 +47,12 @@ public class EventHandler : MonoBehaviour
 
     }
 
-    public void FireEvent(int targetEventID) //Fires a specific event by ID
+    public void FireEvent(int targetEventID, int targetNodeID) //Fires a specific event by ID
     {
-
+        
     }
 
-    public void EventRoll(int localThreat, int targetListID) //Rolls for a random event, from the specified event list.
+    public void EventRoll(int localThreat, int targetListID, int targetNodeID) //Rolls for a random event, from the specified event list.
     {
 
     }

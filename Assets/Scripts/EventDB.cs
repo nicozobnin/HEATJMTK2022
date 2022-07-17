@@ -9,6 +9,7 @@ public abstract class Event
     protected int meventId;
     protected EventScaleEnum meventScale;
     protected float mweight;
+    protected string meventName;
 
     public int getID()
     {
@@ -25,7 +26,7 @@ public abstract class Event
         return mweight;
     }
 
-    public abstract void FireEvent();
+    public abstract void Fire();
 }
 
 public abstract class EventList
@@ -87,11 +88,29 @@ public class DefaultEvent : Event
         meventId = 0;
         meventScale = (EventScaleEnum)3;
         mweight = 0.0f;
+        meventName = "Default Event";
     }
 
-    public override void FireEvent()
+    public override void Fire()
     {
         Debug.Log("Default Event fired. Nothing should happen.");
+    }
+
+}
+
+public class BasicOreEvent : Event
+{
+    public BasicOreEvent()
+    {
+        meventId = 1;
+        meventScale = (EventScaleEnum)2;
+        mweight = 1.0f;
+        meventName = "Ore Deficiency";
+    }
+
+    public override void Fire()
+    {
+        Debug.Log("Basic Ore Event fired.");
     }
 
 }
