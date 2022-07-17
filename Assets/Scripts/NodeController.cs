@@ -46,7 +46,7 @@ public class NodeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        Debug.Log(GetSlotDice(0));
     }
 
     // Update is called once per frame
@@ -87,4 +87,12 @@ public class NodeController : MonoBehaviour
         }
         return null;
     }
+
+    // Returns dice of slot (by index)
+    public GameObject GetSlotDice(int i)
+    {
+        var child = this.gameObject.transform.GetChild(i);
+        return child.GetComponent<SlotController>().dice;
+    }
+
 }
