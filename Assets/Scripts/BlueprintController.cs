@@ -61,6 +61,7 @@ public class BlueprintController : MonoBehaviour
         if (ready)
         {
             Debug.Log("Dice is already full!");
+            return;
         }
 
         faces.Add(face);
