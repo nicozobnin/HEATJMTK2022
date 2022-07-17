@@ -178,5 +178,18 @@ public class NodeController : MonoBehaviour
     {
         IsOn = true;
     }
+
+    public void BuySlot()
+    {
+        if (slotcounter >= MAX_SLOTS)
+        {
+            Debug.Log("Too many slots!");
+            return;
+        }
+        SlotListReference[slotcounter].setStatus(true);
+        slotcounter++;
+        Debug.Log("Bought slot " + slotcounter);
+        return;
+    }
     
 }
