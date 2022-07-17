@@ -7,7 +7,7 @@ public class DiceMultipart : MonoBehaviour
     public GameObject EventHandlerReference;
     public Rigidbody m_Rigidbody;
 
-
+    public bool IsAvailableForGrab= true;
 
     //test
     public bool IsTest = false;
@@ -35,6 +35,7 @@ public class DiceMultipart : MonoBehaviour
     //fail save change
     //public string[] faceName = new string[6];
 
+    bool isLock;
 
     // Update is called once per frame
     public float timer = 0.0f;
@@ -65,7 +66,11 @@ public class DiceMultipart : MonoBehaviour
 
     void Update()
     {
-
+        if(isLock)
+        {
+            m_Rigidbody.velocity = Vector3.zero;
+            transform.Rotate(Time.deltaTime *25, Time.deltaTime * 25, Time.deltaTime * 25, Space.Self);
+        }
 
         if (IsTest)
         {
@@ -81,12 +86,12 @@ public class DiceMultipart : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
-                RollDice();
+                //RollDice();
             }
             if (Input.GetKeyDown(KeyCode.W))
             {
-                m_Rigidbody.AddForce(transform.forward * 100);
-                m_Rigidbody.AddForce(transform.right * 100);
+                //m_Rigidbody.AddForce(transform.forward * 100);
+                //m_Rigidbody.AddForce(transform.right * 100);
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
@@ -161,6 +166,7 @@ public class DiceMultipart : MonoBehaviour
 
 
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        m_Rigidbody.mass = 0.01f;
         //m_Rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionX | ~RigidbodyConstraints.FreezePositionZ;
         return faceID[SunnySideUp()];
     }
@@ -231,12 +237,27 @@ public class DiceMultipart : MonoBehaviour
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up), Color.green);
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right), Color.red);
     }
-
-    void RollDice()
+    public void RestrictDice()
     {
         m_Rigidbody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        isLock = true;
+        m_Rigidbody.useGravity = false;
+    }
+    public void UnrestricDice()
+    {
+        isLock = false;
+        m_Rigidbody.useGravity = true;
+    }
+    public void RollDice()
+    {
+        isLock = false;
+        Debug.Log("Roll dice being call in Dice script");
+        //RestrictDice();
+        //m_Rigidbody.mass = 4f;
 
-        m_Rigidbody.AddForce(transform.up * 250);
+        //either or
+        //m_Rigidbody.AddForce(transform.up *1000);
+        m_Rigidbody.AddExplosionForce(1000, new Vector3(transform.position.x, transform.position.y-1, transform.position.z-1), 3);
         m_Rigidbody.AddTorque(250, 250, 250);
         //if real roll:
         //eleveate dice, roll

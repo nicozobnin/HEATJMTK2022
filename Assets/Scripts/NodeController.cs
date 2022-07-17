@@ -6,13 +6,19 @@ public class NodeController : MonoBehaviour
 {
     //this method implies no Slots spawns with the Node
     //but rather X ammount will be create on start/Unlock
+
+    //All 6 slots are initialized on start
+    //but those not active are turn off
+
     public int MAX_SLOTS = 6;
     public int slotcounter =-1;
-    public int sloInitialAmmount = 3;
+    public int slotsInitialAmmount = 3;
 
 
 
     public List<GameObject> SlotList = new List<GameObject>();
+    public List<SlotController> SlotListReference = new List<SlotController>(); //public for testing porpouses
+
 
     public List<List<int>> resources = new() 
     { 
@@ -46,7 +52,10 @@ public class NodeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(GetSlotDice(0));
+        //Debug.Log(GetSlotDice(0));
+        Debug.Log("Node starting");
+        getSlotsReference();
+        InitializeSlots();
     }
 
     // Update is called once per frame
@@ -54,10 +63,32 @@ public class NodeController : MonoBehaviour
     {
         if(IsTest)
         {
-
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                RollDice();
+            }
         }
     }
-    
+    void InitializeSlots()
+    {
+        if(SlotList.Count<slotcounter || slotcounter> MAX_SLOTS)
+        {
+            Debug.Log("SlotInitialization went wrong, counter is bigger than max ammount");
+        }
+        slotcounter = slotsInitialAmmount;
+        for (int  i = 0; i< slotcounter; i++)
+        {
+            Debug.Log("activating slot");
+            SlotListReference[i].setStatus(true);
+        }
+    }
+    void getSlotsReference()
+    {
+        for (int i = 0; i < SlotList.Count; i++)
+        {
+            SlotListReference.Add(SlotList[i].GetComponent<SlotController>());
+        }
+    }
 
     //Returns [Resource ID, Quantity]
     public List<int> ReturnResource(int type)
@@ -89,10 +120,28 @@ public class NodeController : MonoBehaviour
     }
 
     // Returns dice of slot (by index)
-    public GameObject GetSlotDice(int i)
-    {
-        var child = this.gameObject.transform.GetChild(i);
-        return child.GetComponent<SlotController>().dice;
-    }
+    //public GameObject GetSlotDice(int i)
+    //{
+    //    var child = this.gameObject.transform.GetChild(i);
+    //    return child.GetComponent<SlotController>().dice;
+    //}
 
+    public void RollDice()
+    {
+        //Debug.Log("RollDice Node start");
+        //can change to store game objects in SlotList
+        //get the slotcontroller and then the HasDice
+        for (int i = 0; i< slotcounter; i++)
+        {
+            //Debug.Log("RollDice Node for");
+
+            if (SlotListReference[i].HasDice)
+            {
+                Debug.Log("RollDice Node calling slot");
+
+                SlotListReference[i].RollDice();
+            }
+        }
+    }
+    
 }
