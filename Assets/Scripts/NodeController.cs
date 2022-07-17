@@ -13,7 +13,9 @@ public class NodeController : MonoBehaviour
     /* Order: Pickaxe, Axe, Sickle
      * Format: (Resource ID, quantity)
      * */
-
+    //Test
+    public bool IsTest;
+    //end of test
     public string nodeName;
     public int hazard;
     public GameObject[] slots;
@@ -43,14 +45,19 @@ public class NodeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(IsTest)
+        {
 
+        }
     }
+    
 
     //Returns [Resource ID, Quantity]
     public List<int> ReturnResource(int type)
     {
         return resources[type];
     }
+
 
     public List<int> RollBlueprint()
     {
@@ -71,8 +78,6 @@ public class NodeController : MonoBehaviour
                 return new List<int> { (int)i[0], (int)i[1] };
             }
         }
-
-
         return null;
     }
 }
