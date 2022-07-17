@@ -22,7 +22,12 @@ public class NodeController : MonoBehaviour
 
     //unlock system
     public bool IsOn = false;
-
+    public List<List<int>> unlockCost = new()
+    {
+        new List<int> { 0, 1 },
+        new List<int> { 1, 1 },
+        new List<int> { 2, 1 }
+    };
 
     //can be upgraded to a list to differenciate betweeen different resources
     public int resourceMultiplier=1;
@@ -167,6 +172,11 @@ public class NodeController : MonoBehaviour
                 SlotListReference[i].RollDice();
             }
         }
+    }
+
+    public void BuyNode()
+    {
+        IsOn = true;
     }
     
 }
