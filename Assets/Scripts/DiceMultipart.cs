@@ -5,12 +5,14 @@ using UnityEngine;
 public class DiceMultipart : MonoBehaviour
 {
     public GameObject EventHandlerReference;
+    public Rigidbody m_Rigidbody;
+
+
 
     //test
     public bool IsTest = false;
     //test
 
-    public TextAsset jsonFile;
 
 
     //load FaceType
@@ -28,6 +30,8 @@ public class DiceMultipart : MonoBehaviour
     public List<int> faceID= new List<int>();
     public List<int> facetear= new List<int>();
     public List<string> faceName= new List<string>();
+
+    public int faceUp = -1;
     //fail save change
     //public string[] faceName = new string[6];
 
@@ -36,19 +40,33 @@ public class DiceMultipart : MonoBehaviour
     public float timer = 0.0f;
     public float timelimit = 0.5f;
 
+    GameObject m_gameObject;
     //end of testing zone
     void Start()
     {
         //listClass = FaceTypeTable.instance;
         LoadFaceID = listClass.FaceTypeID;
         LoadFaceName = listClass.FaceTypeName;
-        SunnySideUp();
+        //int i =SunnySideUp();
+        //Debug.Log(" position " + i);
+        m_gameObject = this.GetComponent<GameObject>();
+
+        List<int> faType = new List<int> { 0, 0, 2, 2, 4, 4 };
+        List<int> faTier = new List<int> { 0, 0, 0, 0, 0, 0 };
+        CreateDice(faType, faTier);
+        m_Rigidbody = GetComponent<Rigidbody>();
+        if (!m_Rigidbody)
+        {
+            Rigidbody gameObjectsRigidBody = m_gameObject.AddComponent<Rigidbody>();
+        }
     }
 
 
 
     void Update()
     {
+
+
         if (IsTest)
         {
             DrawTest();
@@ -63,12 +81,16 @@ public class DiceMultipart : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
-                Debug.Log(" create dice ");
-                List<int> faType = new List<int> { 0, 0, 2, 2, 4, 4 };
-                List<int> faTier = new List<int> { 0, 0, 0, 0, 0, 0 };
-                CreateDice(faType, faTier);
-                int n =TempRollResult();
-                Debug.Log("result ID is " + n);
+                RollDice();
+            }
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                m_Rigidbody.AddForce(transform.forward * 100);
+                m_Rigidbody.AddForce(transform.right * 100);
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                returnIDFaceUP();
             }
         }
     }
@@ -106,6 +128,7 @@ public class DiceMultipart : MonoBehaviour
             facesList[i].GetComponent<Renderer>().material = faceMaterial[faType[i]];
             //Debug.Log(" end ");
         }
+
         return true;
     }
 
@@ -122,32 +145,76 @@ public class DiceMultipart : MonoBehaviour
 
         }
     }
-    void SunnySideUp()
+    int returnIDFaceUP()
     {
-        
+        //this implies the dice is being asked for its face up
+        //thus the turn is over
+        //and the dice can be freed
+
+
+        //maybe implement a function that freezes the dice movement when equipet
+        //roll unfreezes Y
+
+        //this function releases XZ
+
+        //un equip func releases all 3
+
+
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        //m_Rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionX | ~RigidbodyConstraints.FreezePositionZ;
+        return faceID[SunnySideUp()];
+    }
+    int SunnySideUp()
+    {
+        //Debug.Log(" angle  " + angle);
+        //
         float angle = 181.0f;
+        float temp=0.0f;
         int i = 0;
         Debug.Log(" angle test start... ");
 
         //u got sides in array, check in order of that array and then return that pos
-
-        angle = Vector3.Angle(transform.up, Vector3.up);
-        Debug.Log(" angle  " + angle);
-
-        angle = Vector3.Angle(transform.up, -transform.up);
-        Debug.Log(" angle  " + angle);
-
-        angle = Vector3.Angle(transform.up, transform.right);
-        Debug.Log(" angle  " + angle);
-
-        angle = Vector3.Angle(transform.up, -transform.right);
-        Debug.Log(" angle  " + angle);
-
-        angle = Vector3.Angle(transform.up, transform.forward);
-        Debug.Log(" angle  " + angle);
-
-        angle = Vector3.Angle(transform.up, -transform.forward);
-        Debug.Log(" angle  " + angle);
+        
+        temp = Vector3.Angle(transform.up, transform.forward);
+        if (temp<angle)
+        {
+            angle = temp;
+            i = 0;
+        }
+        temp = Vector3.Angle(transform.up, -transform.up);
+        if (temp < angle)
+        {
+            angle = temp;
+            i = 1;
+        }
+        temp = Vector3.Angle(transform.up, -transform.forward);
+        if (temp < angle)
+        {
+            angle = temp;
+            i = 2;
+        }
+        temp = Vector3.Angle(transform.up, Vector3.up);
+        if (temp < angle)
+        {
+            angle = temp;
+            i = 3;
+        }
+        temp = Vector3.Angle(transform.up, transform.right);
+        if (temp < angle)
+        {
+            angle = temp;
+            i = 4;
+        }
+        temp = Vector3.Angle(transform.up, -transform.right);
+        if (temp < angle)
+        {
+            angle = temp;
+            i = 5;
+        }
+        //fail save
+        //allows to access the position in all 3 lists
+        faceUp = i;
+        return i;
     }
     int QuickRandomFaceUp()
     {
@@ -167,6 +234,10 @@ public class DiceMultipart : MonoBehaviour
 
     void RollDice()
     {
+        m_Rigidbody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+
+        m_Rigidbody.AddForce(transform.up * 250);
+        m_Rigidbody.AddTorque(250, 250, 250);
         //if real roll:
         //eleveate dice, roll
         //unfreeze Y
@@ -180,13 +251,8 @@ public class DiceMultipart : MonoBehaviour
         //  or
         //      make invisible, make right side up, then make them visible
     }
-    int RollResult()
-    {
-        return 5;
-    }
     int TempRollResult()
     {
-        
         int r = Random.Range(0, faceID.Count);
         return faceID[r];
     }

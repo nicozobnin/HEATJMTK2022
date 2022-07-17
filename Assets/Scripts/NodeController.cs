@@ -4,12 +4,24 @@ using UnityEngine;
 
 public class NodeController : MonoBehaviour
 {
+    //this method implies no Slots spawns with the Node
+    //but rather X ammount will be create on start/Unlock
+    public int MAX_SLOTS = 6;
+    public int slotcounter =-1;
+    public int sloInitialAmmount = 3;
+
+
+
+    public List<GameObject> SlotList = new List<GameObject>();
+
     public List<List<int>> resources = new() 
     { 
         new List<int> { 0, 1 },
         new List<int> { 1, 1 },
         new List<int> { 2, 1 }
     };
+
+
     /* Order: Pickaxe, Axe, Sickle
      * Format: (Resource ID, quantity)
      * */
