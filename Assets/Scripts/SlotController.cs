@@ -54,15 +54,18 @@ public class SlotController : MonoBehaviour
     public void setStatus(bool onoff)
     {
         IsOn = onoff;
-        if (onoff)
+    }
+    public bool CheckStatus()
+    {
+        if (IsOn)
         {
             gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
             Debug.Log("set colore green");
-            return;
+            return true;
         }
         Debug.Log("set colore red");
         gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
-
+        return false;
     }
     public void CatchDice()
     {
