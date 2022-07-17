@@ -10,8 +10,12 @@ public class NodeController : MonoBehaviour
     //All 6 slots are initialized on start
     //but those not active are turn off
 
+    //Event handler refrence
+    public EventHandler EventHandlerReference;
+
+
     public int MAX_SLOTS = 6;
-    public int slotcounter =-1;
+    public int slotcounter = -1;
     public int slotsInitialAmmount = 3;
 
 
@@ -19,18 +23,21 @@ public class NodeController : MonoBehaviour
     public List<GameObject> SlotList = new List<GameObject>();
     public List<SlotController> SlotListReference = new List<SlotController>(); //public for testing porpouses
 
+    public List<int> RollResultCollection = new List<int>();
+    //public int turnRollResult = -1;
 
     //unlock system
     public bool IsOn = false;
 
 
+
     //can be upgraded to a list to differenciate betweeen different resources
-    public int resourceMultiplier=1;
+    public int resourceMultiplier = 1;
     public bool IsRolling = false;
 
 
-    public List<List<int>> resources = new() 
-    { 
+    public List<List<int>> resources = new()
+    {
         new List<int> { 0, 1 },
         new List<int> { 1, 1 },
         new List<int> { 2, 1 }
@@ -61,6 +68,12 @@ public class NodeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        //FindObjectsOfType(typeof(ArmyUnit));
+
+        EventHandlerReference = (EventHandler)FindObjectOfType(typeof(EventHandler));
+
+        EventHandlerReference.RegisterNode(this);
         //Debug.Log(GetSlotDice(0));
         Debug.Log("Node starting");
         getSlotsReference();
@@ -70,22 +83,22 @@ public class NodeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(IsTest)
+        if (IsTest)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                RollDice();
+                //RollDice();
             }
         }
     }
     void InitializeSlots()
     {
-        if(SlotList.Count<slotcounter || slotcounter> MAX_SLOTS)
+        if (SlotList.Count < slotcounter || slotcounter > MAX_SLOTS)
         {
             Debug.Log("SlotInitialization went wrong, counter is bigger than max ammount");
         }
         slotcounter = slotsInitialAmmount;
-        for (int  i = 0; i< slotcounter; i++)
+        for (int i = 0; i < slotcounter; i++)
         {
             Debug.Log("activating slot");
             SlotListReference[i].setStatus(true);
@@ -120,12 +133,23 @@ public class NodeController : MonoBehaviour
     {
         return resources[type];
     }
+    public bool CanCollectResult()
+    {
+        for (int i = 0; i < slotcounter; i++)
+        {
+            if (!SlotListReference[i].CanCollectResult())
+            {
+                return false;
 
+            }
+        }
+        return true;
+    }
 
     public List<int> RollBlueprint()
     {
         float totalWeight = 0.0f;
-        foreach(ArrayList i in blueprintChances)
+        foreach (ArrayList i in blueprintChances)
         {
             totalWeight += (float)i[2];
         }
@@ -156,7 +180,7 @@ public class NodeController : MonoBehaviour
         //Debug.Log("RollDice Node start");
         //can change to store game objects in SlotList
         //get the slotcontroller and then the HasDice
-        for (int i = 0; i< slotcounter; i++)
+        for (int i = 0; i < slotcounter; i++)
         {
             //Debug.Log("RollDice Node for");
 
@@ -168,5 +192,40 @@ public class NodeController : MonoBehaviour
             }
         }
     }
-    
+
+    public void AddUpResult()
+    {
+        //add up all dice
+
+    }
+    public List<int>  AddUpResultsL()
+    {
+        List<int> resourcesL = new List<int>();
+        resourcesL.Add(0);
+        resourcesL.Add(0);
+        resourcesL.Add(0);
+        resourcesL.Add(0);
+        resourcesL.Add(0);
+        resourcesL.Add(0);
+        int  p = Random.Range(0, 3);
+        //emergency list
+        //add up all dice
+        for (int i = 0; i < slotcounter; i++)
+        {
+            //resourcesL[SlotListReference[i].DiceUpID()] += 1;
+        }
+        resourcesL[p] +=1;
+        return resourcesL;
+    }
+    public void AddUpResults()
+    {
+        int s = 0;
+        int w = 0;
+        int f = 0;
+        //emergency list
+        //add up all dice
+        int r = 0;
+        return;
+    }
+
 }

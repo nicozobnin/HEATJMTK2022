@@ -42,14 +42,31 @@ public class PlayerScript : MonoBehaviour
     {
         
     }
-
+    public void AddStone(int quantity)
+    {
+        resources[0] += quantity;
+        updateCanvas();
+    }
+    public void AddWood(int quantity)
+    {
+        resources[1] += quantity;
+        updateCanvas();
+    }
+    public void AddFood(int quantity)
+    {
+        resources[2] += quantity;
+        updateCanvas();
+    }
     // Adds [ID, Quantity] resource.
     public void AddResource(List<int> r)
     {
         resources[r[0]] += r[1];
+        updateCanvas();
+    }
+    void updateCanvas()
+    {
         canvas.GetComponent<CanvasScript>().UpdateResources();
     }
-
     // Adds [[ID, Quantity], []. ...] resources.
     public void AddResources(List<List<int>> r)
     {
