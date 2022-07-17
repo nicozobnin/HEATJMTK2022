@@ -4,16 +4,36 @@ using UnityEngine;
 
 public class NodeController : MonoBehaviour
 {
+    //this method implies no Slots spawns with the Node
+    //but rather X ammount will be create on start/Unlock
+
+    //All 6 slots are initialized on start
+    //but those not active are turn off
+
+    public int MAX_SLOTS = 6;
+    public int slotcounter =-1;
+    public int slotsInitialAmmount = 3;
+
+
+
+    public List<GameObject> SlotList = new List<GameObject>();
+    public List<SlotController> SlotListReference = new List<SlotController>(); //public for testing porpouses
+
+
     public List<List<int>> resources = new() 
     { 
         new List<int> { 0, 1 },
         new List<int> { 1, 1 },
         new List<int> { 2, 1 }
     };
+
+
     /* Order: Pickaxe, Axe, Sickle
      * Format: (Resource ID, quantity)
      * */
-
+    //Test
+    public bool IsTest;
+    //end of test
     public string nodeName;
     public int hazard;
     public GameObject[] slots;
@@ -32,13 +52,42 @@ public class NodeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(GetSlotDice(0));
+        //Debug.Log(GetSlotDice(0));
+        Debug.Log("Node starting");
+        getSlotsReference();
+        InitializeSlots();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(IsTest)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                RollDice();
+            }
+        }
+    }
+    void InitializeSlots()
+    {
+        if(SlotList.Count<slotcounter || slotcounter> MAX_SLOTS)
+        {
+            Debug.Log("SlotInitialization went wrong, counter is bigger than max ammount");
+        }
+        slotcounter = slotsInitialAmmount;
+        for (int  i = 0; i< slotcounter; i++)
+        {
+            Debug.Log("activating slot");
+            SlotListReference[i].setStatus(true);
+        }
+    }
+    void getSlotsReference()
+    {
+        for (int i = 0; i < SlotList.Count; i++)
+        {
+            SlotListReference.Add(SlotList[i].GetComponent<SlotController>());
+        }
     }
 
     //Returns [Resource ID, Quantity]
@@ -46,6 +95,7 @@ public class NodeController : MonoBehaviour
     {
         return resources[type];
     }
+
 
     public List<int> RollBlueprint()
     {
@@ -66,16 +116,32 @@ public class NodeController : MonoBehaviour
                 return new List<int> { (int)i[0], (int)i[1] };
             }
         }
-
-
         return null;
     }
 
     // Returns dice of slot (by index)
-    public GameObject GetSlotDice(int i)
-    {
-        var child = this.gameObject.transform.GetChild(i);
-        return child.GetComponent<SlotController>().dice;
-    }
+    //public GameObject GetSlotDice(int i)
+    //{
+    //    var child = this.gameObject.transform.GetChild(i);
+    //    return child.GetComponent<SlotController>().dice;
+    //}
 
+    public void RollDice()
+    {
+        //Debug.Log("RollDice Node start");
+        //can change to store game objects in SlotList
+        //get the slotcontroller and then the HasDice
+        for (int i = 0; i< slotcounter; i++)
+        {
+            //Debug.Log("RollDice Node for");
+
+            if (SlotListReference[i].HasDice)
+            {
+                Debug.Log("RollDice Node calling slot");
+
+                SlotListReference[i].RollDice();
+            }
+        }
+    }
+    
 }

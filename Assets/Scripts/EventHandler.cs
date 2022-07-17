@@ -23,6 +23,11 @@ public class EventHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(" EventHandler Start ... ");
+    }
+    void awake()
+    {
+        Debug.Log(" EventHandler Processing ... ");
         //Fill the Events list.
         globalEventsList.Add(new DefaultEvent());
 
@@ -47,6 +52,13 @@ public class EventHandler : MonoBehaviour
 
     }
 
+    void OnDrawGizmosSelected()
+    {
+        // Display the explosion radius when selected
+        Gizmos.color = new Color(1, 1, 0, 0.75F);
+        Gizmos.DrawSphere(transform.position, 0.5f);
+    }
+    
     public void FireEvent(int targetEventID, int targetNodeID) //Fires a specific event by ID
     {
         

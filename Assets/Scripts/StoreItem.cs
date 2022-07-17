@@ -11,7 +11,7 @@ public class StoreItem : MonoBehaviour
         new List<int> { 2, 1 }
     };
     public Sprite icon;
-    public string name;
+    public string daname;
     public int id;
     public bool purchased;
     //public Event effect; maybe?
