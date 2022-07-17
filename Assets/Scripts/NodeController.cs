@@ -20,6 +20,15 @@ public class NodeController : MonoBehaviour
     public List<SlotController> SlotListReference = new List<SlotController>(); //public for testing porpouses
 
 
+    //unlock system
+    public bool IsOn = false;
+
+
+    //can be upgraded to a list to differenciate betweeen different resources
+    public int resourceMultiplier=1;
+    public bool IsRolling = false;
+
+
     public List<List<int>> resources = new() 
     { 
         new List<int> { 0, 1 },
@@ -81,6 +90,22 @@ public class NodeController : MonoBehaviour
             Debug.Log("activating slot");
             SlotListReference[i].setStatus(true);
         }
+    }
+    public void setStatus(bool onoff)
+    {
+        IsOn = onoff;
+    }
+    public bool CheckStatus()
+    {
+        if (IsOn)
+        {
+            gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+            Debug.Log("set colore green");
+            return true;
+        }
+        Debug.Log("set colore red");
+        gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+        return false;
     }
     void getSlotsReference()
     {
