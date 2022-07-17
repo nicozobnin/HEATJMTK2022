@@ -6,13 +6,17 @@ public class SlotController : MonoBehaviour
 {
     public DiceMultipart dice;
     public bool HasDice = false;
+
+
+    public bool IsRolling = false;
+    public bool CollectResult = false;
     // Start is called before the first frame update
     //trigger
     public BoxCollider boxCol;
 
     public GameObject m_gameObject;
 
-
+    public int diceresult = 5;//failsave
 
 
     public bool IsOn = false;
@@ -32,7 +36,33 @@ public class SlotController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(IsRolling)
+        {
+            CollectDiceResult();
+        }
+    }
+    public bool CanCollectResult()
+    {
+        if(!HasDice)
+        {
+            //diceresult = 5;
+            return true;
+        }
+        return dice.CanCollectResult();
+    }
+    public void CollectDiceResult()
+    {
+        if(dice.CanCollectResult())
+        {
+            IsRolling = false;
+            CollectResult = false;
+            diceresult = dice.returnIDFaceUP(); //can be reaplace witha  returnIDFaceUP() copy, fail -1
+        }
+    }
+    public int DiceUpID()
+    {
+        Debug.Log("ID " + diceresult);
+        return diceresult;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -69,6 +99,7 @@ public class SlotController : MonoBehaviour
     }
     public void CatchDice()
     {
+        //diceresult = 5; //fail save
         dice.RestrictDice();
 
         Vector3 newposition = transform.position + new Vector3(0, 1, 0);

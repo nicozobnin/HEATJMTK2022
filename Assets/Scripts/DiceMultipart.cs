@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class DiceMultipart : MonoBehaviour
 {
-    public GameObject EventHandlerReference;
+    public GameObject EventHandlerReference;//Direct reference
     public Rigidbody m_Rigidbody;
 
-    public bool IsAvailableForGrab= true;
+    public bool IsAvailableForGrab = true;
+
+    public bool IsRolling = false;
+    public bool CollectResult = false;
+
 
     //test
     public bool IsTest = false;
@@ -27,11 +31,11 @@ public class DiceMultipart : MonoBehaviour
     public Texture2D[] faceAssets = new Texture2D[6];
     public Material[] faceMaterial = new Material[6];
 
-    public List<int> faceID= new List<int>();
-    public List<int> facetear= new List<int>();
-    public List<string> faceName= new List<string>();
+    public List<int> faceID = new List<int>();
+    public List<int> facetear = new List<int>();
+    public List<string> faceName = new List<string>();
 
-    public int faceUp = -1;
+    public int faceUp = 5;
     //fail save change
     //public string[] faceName = new string[6];
 
@@ -39,7 +43,7 @@ public class DiceMultipart : MonoBehaviour
 
     // Update is called once per frame
     public float timer = 0.0f;
-    public float timelimit = 0.5f;
+    public float timelimit = 1.2f;
 
     GameObject m_gameObject;
     //end of testing zone
@@ -58,7 +62,7 @@ public class DiceMultipart : MonoBehaviour
         m_Rigidbody = GetComponent<Rigidbody>();
         if (!m_Rigidbody)
         {
-            Rigidbody gameObjectsRigidBody = m_gameObject.AddComponent<Rigidbody>();
+            m_Rigidbody = m_gameObject.AddComponent<Rigidbody>();
         }
     }
 
@@ -66,23 +70,44 @@ public class DiceMultipart : MonoBehaviour
 
     void Update()
     {
-        if(isLock)
+        if (IsRolling)
+        {
+            //Debug.Log("m_Rigidbody.velocity.magnitude" + m_Rigidbody.velocity.magnitude);
+            timer += Time.deltaTime;
+            //testing zone
+            //Debug.Log("waiting");
+
+            if (timer > timelimit)
+            {
+                //Debug.Log(" seconds passed");
+                //setRandomFaces();
+                timer = 0.0f;
+                //Debug.Log("time done");
+
+                if (m_Rigidbody.velocity.magnitude < 0.5f)
+                {
+                    Debug.Log("Dice is stopped");
+                    CollectResult = true;
+                }
+            }
+        }
+        if (isLock)
         {
             m_Rigidbody.velocity = Vector3.zero;
-            transform.Rotate(Time.deltaTime *25, Time.deltaTime * 25, Time.deltaTime * 25, Space.Self);
+            transform.Rotate(Time.deltaTime * 25, Time.deltaTime * 25, Time.deltaTime * 25, Space.Self);
         }
 
         if (IsTest)
         {
             DrawTest();
 
-            timer += Time.deltaTime;
+            //timer += Time.deltaTime;
             //testing zone
             if (timer > timelimit)
             {
                 //Debug.Log(" seconds passed");
                 //setRandomFaces();
-                timer = 0;
+                //timer = 0;
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -99,6 +124,10 @@ public class DiceMultipart : MonoBehaviour
             }
         }
     }
+    public bool CanCollectResult()
+    {
+        return CollectResult;
+    }
 
     public bool CreateDice(List<List<int>> blueprint)
     {
@@ -107,14 +136,14 @@ public class DiceMultipart : MonoBehaviour
     }
     public bool CreateDice(List<int> faType, List<int> faTier)
     {
-        if((faType.Count<1) || (faTier.Count < 1) || faceName.Count >6)
+        if ((faType.Count < 1) || (faTier.Count < 1) || faceName.Count > 6)
         {
             return false;
         }
         faceID = faType;
         facetear = faTier;
 
-        for(int i = 0; i < faceID.Count; i++)
+        for (int i = 0; i < faceID.Count; i++)
         {
 
             faceName.Add(LoadFaceName[faceID[i]]);
@@ -142,7 +171,7 @@ public class DiceMultipart : MonoBehaviour
         //testing mode, will select random faces
         //final version will take an array, and set the material correctly
         //save the position of each item
-        for(int i = 0; i < facesList.Count; i++)
+        for (int i = 0; i < facesList.Count; i++)
         {
             int r = Random.Range(0, 6);
             Debug.Log(" r is " + r);
@@ -150,8 +179,9 @@ public class DiceMultipart : MonoBehaviour
 
         }
     }
-    int returnIDFaceUP()
+    public int returnIDFaceUP()
     {
+
         //this implies the dice is being asked for its face up
         //thus the turn is over
         //and the dice can be freed
@@ -164,25 +194,29 @@ public class DiceMultipart : MonoBehaviour
 
         //un equip func releases all 3
 
-
+        Debug.Log(" Call Return dice up ");
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        m_Rigidbody.mass = 0.01f;
+        //m_Rigidbody.mass = 0.01f;
         //m_Rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionX | ~RigidbodyConstraints.FreezePositionZ;
-        return faceID[SunnySideUp()];
+        IsRolling = false;
+        CollectResult = false;
+        int o = faceID[SunnySideUp()];
+        Debug.Log(" o  " + o);
+        return o;
     }
     int SunnySideUp()
     {
         //Debug.Log(" angle  " + angle);
         //
         float angle = 181.0f;
-        float temp=0.0f;
+        float temp = 0.0f;
         int i = 0;
         Debug.Log(" angle test start... ");
 
         //u got sides in array, check in order of that array and then return that pos
-        
+
         temp = Vector3.Angle(transform.up, transform.forward);
-        if (temp<angle)
+        if (temp < angle)
         {
             angle = temp;
             i = 0;
@@ -240,24 +274,29 @@ public class DiceMultipart : MonoBehaviour
     public void RestrictDice()
     {
         m_Rigidbody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
-        isLock = true;
-        m_Rigidbody.useGravity = false;
+        //isLock = true;
+        //m_Rigidbody.useGravity = false;
+        m_Rigidbody.isKinematic = true;
     }
     public void UnrestricDice()
     {
-        isLock = false;
-        m_Rigidbody.useGravity = true;
+        //isLock = false;
+        //m_Rigidbody.useGravity = true;
+        m_Rigidbody.isKinematic = false;
+
     }
     public void RollDice()
     {
+        UnrestricDice();
         isLock = false;
+        IsRolling = true;
         Debug.Log("Roll dice being call in Dice script");
         //RestrictDice();
         //m_Rigidbody.mass = 4f;
 
         //either or
         //m_Rigidbody.AddForce(transform.up *1000);
-        m_Rigidbody.AddExplosionForce(1000, new Vector3(transform.position.x, transform.position.y-1, transform.position.z-1), 3);
+        m_Rigidbody.AddExplosionForce(1000, new Vector3(transform.position.x, transform.position.y - 1, transform.position.z), 3);
         m_Rigidbody.AddTorque(250, 250, 250);
         //if real roll:
         //eleveate dice, roll
