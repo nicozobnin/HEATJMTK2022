@@ -954,7 +954,6 @@ GameObject:
   - component: {fileID: 474203359}
   - component: {fileID: 474203358}
   - component: {fileID: 474203357}
-  - component: {fileID: 474203360}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1028,19 +1027,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 25.021, y: -32.472, z: 0}
---- !u!114 &474203360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474203356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92ef099a409f99f4093124742d52d3a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 1
 --- !u!1 &489364521
 GameObject:
   m_ObjectHideFlags: 0
@@ -2975,7 +2961,6 @@ GameObject:
   - component: {fileID: 1521300670}
   - component: {fileID: 1521300669}
   - component: {fileID: 1521300668}
-  - component: {fileID: 1521300673}
   - component: {fileID: 1521300667}
   - component: {fileID: 1521300672}
   m_Layer: 0
@@ -3135,18 +3120,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1521300673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1521300666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e951f1f034cbe1340bd62e417f1ab817, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1807304727
 GameObject:
   m_ObjectHideFlags: 0
@@ -3429,7 +3402,6 @@ GameObject:
   - component: {fileID: 1911259985}
   - component: {fileID: 1911259984}
   - component: {fileID: 1911259983}
-  - component: {fileID: 1911259982}
   m_Layer: 0
   m_Name: Test drag
   m_TagString: Untagged
@@ -3437,18 +3409,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1911259982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1911259981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e951f1f034cbe1340bd62e417f1ab817, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1911259983
 BoxCollider:
   m_ObjectHideFlags: 0
